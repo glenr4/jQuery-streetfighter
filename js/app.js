@@ -3,12 +3,14 @@ $(document).ready(function(){
 	$(".ryu").mouseenter(function(){
 		$(".ryu-still").hide();
 		$(".ryu-ready").show();
+		$(".ryu-cool").hide();
 	});
 
 	// Be still Ryu
 	$(".ryu").mouseleave(function(){
 		$(".ryu-still").show();
 		$(".ryu-ready").hide();
+		$(".ryu-cool").hide();
 	});
 
 	// Hadouken
@@ -30,6 +32,15 @@ $(document).ready(function(){
 	$(".ryu").mouseup(function(){
 		$(".ryu-ready").show();
 		$(".ryu-throwing").hide();
+	});
+
+	// Ryu cool pose
+	$(document).keydown(function(event){
+		if(event.which == 88){
+			$(".ryu-still").hide();
+			$(".ryu-ready").hide();
+			$(".ryu-cool").show();
+		}
 	});
 });
 
