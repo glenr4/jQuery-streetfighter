@@ -4,28 +4,18 @@ $(document).ready(function(){
 
 	// Ryu ready pose
 	$(".ryu").mouseenter(function(){
-		$(".ryu-still").hide();
-		$(".ryu-ready").show();
-		$(".ryu-cool").hide();
-		// Update state
-		ryuPose = "ready";
+		ryuPose = ryuReady();
 	});
 
 	// Ryu still pose
 	$(".ryu").mouseleave(function(){
-		$(".ryu-still").show();
-		$(".ryu-ready").hide();
-		$(".ryu-cool").hide();
-		// Update state
-		ryuPose = "still";
+		ryuPose = ryuStill();
 	});
 
 	// Ryu cool pose
 	$(document).keydown(function(event){
 		if(event.keyCode === 88){
-			$(".ryu-still").hide();
-			$(".ryu-ready").hide();
-			$(".ryu-cool").show();
+			ryuCool();
 		}
 	});
 
@@ -33,44 +23,76 @@ $(document).ready(function(){
 	$(document).keyup(function(event){
 		if(event.keyCode === 88){
 			if(ryuPose ==="ready"){
-				$(".ryu-still").hide();
-				$(".ryu-ready").show();
-				$(".ryu-cool").hide();				
+				ryuPose = ryuReady();
 			} else {
-				$(".ryu-still").show();
-				$(".ryu-ready").hide();
-				$(".ryu-cool").hide();
+				ryuPose = ryuStill();
 			};
 		};
 	});
 
-	// Throw Hadouken
+	// Throw hadouken
 	$(".ryu").mousedown(function(){
-		// Play Hadouken sound and change to throwing image
-		playHadouken();
-		$(".ryu-ready").hide();
-		$(".ryu-throwing").show();
-		// Animate hadouken to right extent of main div
-		$(".hadouken").finish().show().animate(
-			{"left":"1020px"},
-			500,
-			// Hide hadouken image and reset position
-			function () {
-				$(this).hide();
-				$(this).css("left","520px");
-			});
+		throwHadouken();
 	});
 
-	// Finish Hadouken
+	// Finish hadouken
 	$(".ryu").mouseup(function(){
-		$(".ryu-ready").show();
-		$(".ryu-throwing").hide();
+		finishHadouken();
 	});
 });
+
+// Throw hadouken
+function throwHadouken (){
+	// Play Hadouken sound and change to throwing image
+	playHadouken();
+	$(".ryu-ready").hide();
+	$(".ryu-throwing").show();
+	// Animate hadouken to right extent of main div
+	$(".hadouken").finish().show().animate(
+		{"left":"1020px"},
+		500,
+		// Hide hadouken image and reset position
+		function () {
+			$(this).hide();
+			$(this).css("left","520px");
+		}
+	);
+};
 
 // Hadouken sound
 function playHadouken () {
 	$('#hadouken-sound')[0].volume = 0.5;
 	$('#hadouken-sound')[0].load();
 	$('#hadouken-sound')[0].play();
-}
+};
+
+// Finish hadouken
+function finishHadouken(){
+	$(".ryu-ready").show();
+	$(".ryu-throwing").hide();	
+};
+
+// Ryu ready
+function ryuReady () {
+	$(".ryu-still").hide();
+	$(".ryu-ready").show();
+	$(".ryu-cool").hide();
+	// Update state
+	return "ready";
+};
+
+// Ryu still
+function ryuStill () {
+	$(".ryu-still").show();
+	$(".ryu-ready").hide();
+	$(".ryu-cool").hide();
+	// Update state
+	ryuPose = "still";
+};
+
+// Ryu cool
+function ryuCool () {
+	$(".ryu-still").hide();
+	$(".ryu-ready").hide();
+	$(".ryu-cool").show();	
+};
