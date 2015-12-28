@@ -1,9 +1,14 @@
 $(document).ready(function(){
+	// Store Ryu state
+	var ryuPose = "still";
+
 	// Ryu ready pose
 	$(".ryu").mouseenter(function(){
 		$(".ryu-still").hide();
 		$(".ryu-ready").show();
 		$(".ryu-cool").hide();
+		// Update state
+		ryuPose = "ready";
 	});
 
 	// Ryu still pose
@@ -11,15 +16,32 @@ $(document).ready(function(){
 		$(".ryu-still").show();
 		$(".ryu-ready").hide();
 		$(".ryu-cool").hide();
+		// Update state
+		ryuPose = "still";
 	});
 
 	// Ryu cool pose
 	$(document).keydown(function(event){
-		if(event.which == 88){
+		if(event.keyCode === 88){
 			$(".ryu-still").hide();
 			$(".ryu-ready").hide();
 			$(".ryu-cool").show();
 		}
+	});
+
+	// Ryu revert cool pose
+	$(document).keyup(function(event){
+		if(event.keyCode === 88){
+			if(ryuPose ==="ready"){
+				$(".ryu-still").hide();
+				$(".ryu-ready").show();
+				$(".ryu-cool").hide();				
+			} else {
+				$(".ryu-still").show();
+				$(".ryu-ready").hide();
+				$(".ryu-cool").hide();
+			};
+		};
 	});
 
 	// Throw Hadouken
